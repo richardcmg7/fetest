@@ -7,7 +7,7 @@ const APP_ROUTES: Routes = [
   { path: 'home', component: HomeComponent },
   { path: 'login-register', component: LoginRegisterComponent },
 
-  { path: '**', pathMatch: 'full', redirectTo: 'login-register' },
+  { path: '**', pathMatch: 'full', redirectTo: 'home' },
 ];
 
 
