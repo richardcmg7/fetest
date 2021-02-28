@@ -7,6 +7,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeComponent implements OnInit {
 
+  //This data is obtained from the database
+  percentageVotes = 10;
+  imgLocation = "img/kanye.jpg";
+
   constructor() { }
 
   ngOnInit(): void {

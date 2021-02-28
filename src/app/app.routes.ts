@@ -4,8 +4,8 @@ import { LoginRegisterComponent } from './page/login-register/login-register.com
 import { Routes, RouterModule } from '@angular/router';
 
 const APP_ROUTES: Routes = [
-  { path: 'login', component: HomeComponent },
-  { path: 'home', component: LoginRegisterComponent },
+  { path: 'home', component: HomeComponent },
+  { path: 'login-register', component: LoginRegisterComponent },
 
   { path: '**', pathMatch: 'full', redirectTo: 'login-register' },
 ];
