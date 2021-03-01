@@ -1,0 +1,40 @@
+<div class="card mt-5  w-md-50 w-100 ml-3">
+  <div class="card-header">
+    <h4>Register</h4>
+  </div>
+  <form class="" (ngSubmit)="registerUser(data)" #data="ngForm">
+    <div class="form-group mr-3 ml-3 mt-2">
+      <label for="userName">User Name</label>
+      <input type="text" required name="username" [(ngModel)]="userModel.username" class="form-control" id="userName"
+        placeholder="User Name">
+    </div>
+
+    <div class="form-group  mr-3 ml-3">
+      <label for="userAge">Age</label>
+      <input type="number" required name="age" [(ngModel)]="userModel.age" class="form-control" id="userAge"
+        placeholder="Age">
+    </div>
+
+    <div class="form-group  mr-3 ml-3">
+      <label for="civil_state">Civil state</label>
+      <input type="text" required name="civil_state" [(ngModel)]="userModel.civil_state" class="form-control"
+        id="civil_state" placeholder="Civil state">
+    </div>
+
+    <div class="form-group mr-3 ml-3 mt-2">
+      <label for="emailUser">Email address</label>
+      <input type="email" required name="email" [(ngModel)]="userModel.email" class="form-control" id="emailUser"
+        placeholder="email@example.com">
+    </div>
+
+    <div class="form-group  mr-3 ml-3">
+      <label for="passwordUser">Password</label>
+      <input type="password" required name="password" [(ngModel)]="userModel.password" class="form-control"
+        id="passwordUser" placeholder="Password">
+    </div>
+
+    <div class="d-flex w-100 justify-content-end">
+      <button type="submit" class="btn btn-primary mt-2 mr-3 mb-2">Register</button>
+    </div>
+  </form>
+</div>

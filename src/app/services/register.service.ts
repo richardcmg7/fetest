@@ -1,10 +1,41 @@
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import {map} from 'rxjs/operators';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class RegisterService {
 
-   constructor(private http: HttpClientModule) { }
+  private url = environment.baseUrl;
+
+  tocken: string;
+
+  constructor(private http: HttpClient) { }
+
+  registerUser(data) {
+    return this.http.post(
+      `${this.url}auth/signup`, data
+    ).pipe(
+      map(resp => {
+        this.saveToken(resp['token']);
+        return resp;
+      })
+    );
+  }
+
+  private saveToken(dataToken) {
+    this.tocken = dataToken;
+    sessionStorage.setItem('token', dataToken);
+  }
+
+  readToken() {
+    if (sessionStorage.getItem('token')) {
+      this.tocken = sessionStorage.getItem('token');
+    } else {
+      this.tocken = "";
+    }
+    return this.tocken;
+  }
 }

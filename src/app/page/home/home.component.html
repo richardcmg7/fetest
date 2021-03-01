@@ -3,7 +3,7 @@
   <!-- Navbar -->
   <nav class="navbar navbar-expand-sm navbar-dark  ">
     <h3 class=" text-white ml-lg-5" href="#">Rule of Thumb.</h3>
-    <button class="navbar-toggler d-lg-none navbar-white " onclick="margin()" type="button" data-toggle="collapse"
+    <button class="navbar-toggler d-lg-none navbar-white " (click)="margin()" type="button" data-toggle="collapse"
       data-target="#collapsibleNavId" aria-controls="collapsibleNavId" aria-expanded="false"
       aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -16,8 +16,11 @@
         <li class="nav-item mr-sm-4">
           <a class="nav-link text-white opacityText" href="#">How It Works</a>
         </li>
-        <li class="nav-item mr-sm-4">
-          <a class="nav-link text-white opacityText" href="#">Log In / Sign Up</a>
+        <li *ngIf="sesionToken==0" class="nav-item mr-sm-4" routerLink="/login-register">
+          <a class="nav-link text-white opacityText">Log In / Sign Up</a>
+        </li>
+        <li *ngIf="sesionToken==1" class="nav-item mr-sm-4" (click)="closeSesion()">
+          <a class="nav-link text-white opacityText">Sign off</a>
         </li>
       </ul>
       <div class="form-inline my-2 my-md-0">
@@ -63,7 +66,7 @@
 </div>
 
 <!-- Container-->
-<div class="container" id="element-speakout">
+<div class="container {{ classMarginSpeakOut }}" >
   <!-- Row of Speak out-->
   <div class="row colorGray ml-1 mr-1 mt-5 shadow ">
     <div class="col-4 col-md-3">
@@ -113,15 +116,16 @@
             <p>Vestibulum diam ante, porttitor a odio eget, rhoncus neque. Aenean eu velit libero.</p>
 
             <div class="d-flex justify-content-start">
-              <button class="color-info mr-2 sizeButtonLikeorNot">
+              <button class="color-info mr-2 sizeButtonLikeorNot" (click)="votesUser()">
                 <app-like-svg [sizeImgSvg]="20" ></app-like-svg>
 
               </button>
-              <button class="color-warking mr-2 sizeButtonLikeorNot">
+              <button class="color-warking mr-2 sizeButtonLikeorNot" (click)="votesUser()">
                 <app-dislike-svg [sizeImgSvg]="20"></app-dislike-svg>
               </button>
-              <button class=" color-black-transparent mr-2 text-white borderButtonVoteNow w-25">Vote now</button>
-            </div>
+                  <button class="d-block d-sm-none d-lg-block color-black-transparent mr-2 text-white borderButtonVoteNow w-25 buttonVoteNow">Vote now</button>
+                  </div>
+              <button class="d-none d-sm-block d-lg-none  color-black-transparent mr-2 text-white borderButtonVoteNow w-sm-75 w-md-50 buttonVoteNow mt-3" style="height: 40px;">Vote now</button>
           </div>
         </div>
 

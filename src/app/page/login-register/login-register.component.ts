@@ -8,7 +8,6 @@ import { Component, OnInit } from '@angular/core';
 export class LoginRegisterComponent implements OnInit {
 
   constructor() { }
-
   ngOnInit(): void {
   }
 
