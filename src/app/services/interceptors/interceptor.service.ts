@@ -11,13 +11,18 @@ export class InterceptorService implements HttpInterceptor {
   constructor() { }
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-     req = req.clone({
-      setHeaders: {
-        'Content-Type' : 'application/json; charset=utf-8',
-        'Accept'       : '*/*',
-        'Authorization':  `Bearer ${AuthService.getToken()}`,
-      },
-    });
+
+
+    if (AuthService.getToken()) {
+      req = req.clone({
+        setHeaders: {
+          'Content-Type' : 'application/json; charset=utf-8',
+          'Accept'       : '*/*',
+          'Authorization':  `Bearer ${AuthService.getToken()}`,
+        },
+      });
+    }
+
 
     return next.handle(req);
   }
