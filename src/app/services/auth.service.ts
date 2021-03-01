@@ -14,4 +14,8 @@ export class AuthService {
   logout() {
     sessionStorage.removeItem('token');
   }
+
+  static getToken() {
+    return sessionStorage.getItem('Token');
+  }
 }

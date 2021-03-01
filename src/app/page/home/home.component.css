@@ -118,6 +118,10 @@
   border: 2px solid black; /* Green */
 }
 
+.justify-content-start .sizeButtonLikeorNot:hover {
+  border: 2px solid white;
+}
+
 @media (max-width: 660px) {
   .cardSize {
     width: 100%;

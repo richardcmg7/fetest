@@ -1,6 +1,7 @@
+import { InterceptorService } from './services/interceptors/interceptor.service';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 
 // routes
@@ -17,6 +18,7 @@ import { TwitterSvgComponent } from './components/twitter-svg/twitter-svg.compon
 import { SearchSvgComponent } from './components/search-svg/search-svg.component';
 import { LoginComponent } from './components/login-register/login/login.component';
 import { RegisterComponent } from './components/login-register/register/register.component';
+import { PagesExampleComponent } from './page/pages-example/pages-example.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +31,8 @@ import { RegisterComponent } from './components/login-register/register/register
     TwitterSvgComponent,
     SearchSvgComponent,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    PagesExampleComponent,
   ],
   imports: [
     APP_ROUTING,
@@ -37,7 +40,13 @@ import { RegisterComponent } from './components/login-register/register/register
     HttpClientModule,
     FormsModule
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: InterceptorService,
+      multi: true,
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

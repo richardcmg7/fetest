@@ -2,7 +2,7 @@
 
   <!-- Navbar -->
   <nav class="navbar navbar-expand-sm navbar-dark  ">
-    <h3 class=" text-white ml-lg-5" href="#">Rule of Thumb.</h3>
+    <h3 class=" text-white ml-lg-5">Rule of Thumb.</h3>
     <button class="navbar-toggler d-lg-none navbar-white " (click)="margin()" type="button" data-toggle="collapse"
       data-target="#collapsibleNavId" aria-controls="collapsibleNavId" aria-expanded="false"
       aria-label="Toggle navigation">
@@ -10,11 +10,11 @@
     </button>
     <div class="collapse navbar-collapse" id="collapsibleNavId">
       <ul class="navbar-nav mr-auto ml-lg-0 mt-2 mt-lg-0 w-100 d-lg-flex justify-content-end">
-        <li class="nav-item active mr-sm-4">
-          <a class="nav-link text-white opacityText" href="#">Past Trials </a>
+        <li class="nav-item active mr-sm-4" routerLink="/pagesUrl/Past Trials">
+          <a class="nav-link text-white opacityText">Past Trials </a>
         </li>
-        <li class="nav-item mr-sm-4">
-          <a class="nav-link text-white opacityText" href="#">How It Works</a>
+        <li class="nav-item mr-sm-4" routerLink="/pagesUrl/How It Works">
+          <a class="nav-link text-white opacityText">How It Works</a>
         </li>
         <li *ngIf="sesionToken==0" class="nav-item mr-sm-4" routerLink="/login-register">
           <a class="nav-link text-white opacityText">Log In / Sign Up</a>
@@ -113,26 +113,29 @@
             </div>
 
             <p class="card-text">1 month ago in Entertainment</p>
-            <p>Vestibulum diam ante, porttitor a odio eget, rhoncus neque. Aenean eu velit libero.</p>
+            <p>{{ textPersonFamous[hideBottonVotes] }}</p>
 
             <div class="d-flex justify-content-start">
-              <button class="color-info mr-2 sizeButtonLikeorNot" (click)="votesUser()">
+              <button class="color-info mr-2 sizeButtonLikeorNot"(click)="checkBotton(1)" *ngIf="hideBottonVotes==1" >
                 <app-like-svg [sizeImgSvg]="20" ></app-like-svg>
 
               </button>
-              <button class="color-warking mr-2 sizeButtonLikeorNot" (click)="votesUser()">
-                <app-dislike-svg [sizeImgSvg]="20"></app-dislike-svg>
+              <button class="color-warking mr-2 sizeButtonLikeorNot"  *ngIf="hideBottonVotes==1" (click)="checkBotton(0)" >
+                <app-dislike-svg [sizeImgSvg]="20" ></app-dislike-svg>
               </button>
-                  <button class="d-block d-sm-none d-lg-block color-black-transparent mr-2 text-white borderButtonVoteNow w-25 buttonVoteNow">Vote now</button>
+                  <button class="d-block d-sm-none d-lg-block color-black-transparent mr-2 text-white borderButtonVoteNow w-25 buttonVoteNow" (click)="votesUser()">{{ textButtonVotes }}</button>
                   </div>
-              <button class="d-none d-sm-block d-lg-none  color-black-transparent mr-2 text-white borderButtonVoteNow w-sm-75 w-md-50 buttonVoteNow mt-3" style="height: 40px;">Vote now</button>
+              <button class="d-none d-sm-block d-lg-none  color-black-transparent mr-2 text-white borderButtonVoteNow w-sm-75 w-md-50 buttonVoteNow mt-3" style="height: 40px;" (click)="votesUser()">{{ textButtonVotes }}</button>
           </div>
         </div>
 
         <!-- Buttons votes -->
         <div class="w-100 d-flex ">
           <div class="color-info sizeButtonTransparentFamous d-flex" style="width: 64%; ">
-              <app-like-svg [sizeImgSvg]="30"></app-like-svg>
+              <div class="mt-2 ml-2 mr-2">
+                <app-like-svg [sizeImgSvg]="30"></app-like-svg>
+              </div>
+
             <h4 class="mt-2 ml-2 text-white">64%</h4>
           </div>
           <div class="color-warking sizeButtonTransparentFamous d-flex justify-content-end" style="width: 36%;">
@@ -372,9 +375,9 @@
         <div class="w-100 h-100 p-0 d-flex justify-content-between opacity-transparent-white">
           <h3 class="mt-3 ml-3 d-none d-md-block">Is there anyone else you would want us to add? </h3>
           <h6 class="mt-3 ml-3 d-block d-md-none">Is there anyone else you would want us to add? </h6>
-          <button class=" color-black-transparent mr-2 borderButtonVoteNowBlack w-25 h-75 mt-2 mr-2 d-none d-md-block">
+          <button class=" color-black-transparent mr-2 borderButtonVoteNowBlack w-25 h-75 mt-2 mr-2 d-none d-md-block" routerLink="/pagesUrl/Submint a Name">
             <strong>Submint a Name</strong></button>
-          <button class=" color-black-transparent mr-2 borderButtonVoteNowBlack w-50 h-75 mt-2 mr-2  d-block d-md-none">
+          <button class="color-black-transparent mr-2 borderButtonVoteNowBlack w-50 h-75 mt-2 mr-2  d-block d-md-none"  routerLink="/pagesUrl/Submint a Name">
             Submint a Name</button>
         </div>
       </div>
@@ -386,14 +389,15 @@
   <!-- Footer of page-->
   <div class="w-100 d-flex justify-content-sm-between mt-4 mb-4">
     <div class="d-flex">
-      <p class="opacityText ">Terms and Conditions</p>
-      <p class="opacityText ml-2 ml-sm-4 ">Privacy Policy</p>
-      <p class="opacityText ml-2 mr-2 ml-sm-0 ml-sm-4 ">Contact Us</p>
+      <p class="opacityText" routerLink="/pagesUrl/Terms and Conditions">Terms and Conditions</p>
+      <p class="opacityText ml-2 ml-sm-4" routerLink="/pagesUrl/Privacy Policy">Privacy Policy</p>
+      <p class="opacityText ml-2 mr-2 ml-sm-0 ml-sm-4" routerLink="/pagesUrl/Contact Us">Contact Us</p>
     </div>
     <div class="d-flex">
-      <p class="opacityText mr-2 mr-sm-4">Folow Us</p>
-      <app-facebook-svg [sizeImgSvg]="30"></app-facebook-svg>
-      <app-twitter-svg [sizeImgSvg]="30"></app-twitter-svg>
+      <p class="opacityText mr-2 mr-sm-4" routerLink="/pagesUrl/Folow Us">Folow Us</p>
+      <a routerLink="/pagesUrl/Twitter"><app-facebook-svg [sizeImgSvg]="30"></app-facebook-svg></a>
+      <a routerLink="/pagesUrl/Facebook"><app-twitter-svg [sizeImgSvg]="30" ></app-twitter-svg></a>
+
     </div>
   </div>
 </div>
