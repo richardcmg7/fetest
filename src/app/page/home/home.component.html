@@ -97,7 +97,8 @@
   <!-- Cards the famous-->
   <div class="row">
     <!-- Cards famous-->
-    <div  *ngFor="let item of dataFamousApi" class="col-sm-6 mt-4 "  >
+    <div  *ngFor="let item of dataFamousApi; index as i" class="col-sm-6 mt-4 "  >
+
       <div class="card imgBackgroudCardVotes text-white shadow-lg"
         style=" background-image: url('{{ item.image }}');  background-repeat: no-repeat;  background-position: center;  background-size: cover;">
         <div class="card-body">
