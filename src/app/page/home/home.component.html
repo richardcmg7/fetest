@@ -24,7 +24,9 @@
         </li>
       </ul>
       <div class="form-inline my-2 my-md-0">
-        <app-search-svg [sizeImgSvg]="16"></app-search-svg>
+        <a routerLink="/pagesUrl/Search">
+         <app-search-svg [sizeImgSvg]="16"></app-search-svg>
+        </a>
       </div>
     </div>
   </nav>
@@ -94,28 +96,35 @@
 
   <!-- Cards the famous-->
   <div class="row">
-    <!-- Cards kanye-->
-    <div class="col-sm-6 mt-4 ">
+    <!-- Cards famous-->
+    <div  *ngFor="let item of dataFamousApi" class="col-sm-6 mt-4 "  >
       <div class="card imgBackgroudCardVotes text-white shadow-lg"
-        style=" background-image: url('./assets/img/kanye.jpg');  background-repeat: no-repeat;  background-position: center;  background-size: cover;">
+        style=" background-image: url('{{ item.image }}');  background-repeat: no-repeat;  background-position: center;  background-size: cover;">
         <div class="card-body">
         </div>
 
         <div class="divContentFamous">
           <div class="ml-3 mb-4">
-            <div class="d-flex  ">
-              <button class="color-info sizeButtonLikeorNot">
-                <app-like-svg [sizeImgSvg]="20" *ngIf="percentageVotes>=50 && percentageVotes<=100" ></app-like-svg>
-                <app-dislike-svg [sizeImgSvg]="20" *ngIf="percentageVotes>=1 && percentageVotes<=49"></app-dislike-svg>
+            <div class="d-flex row_name ">
+              <button  class="color-info sizeButtonLikeorNot"   *ngIf="dataVotesFamous[0]['likePercentage']>=50">
+                <app-like-svg [sizeImgSvg]="20"  ></app-like-svg>
+
               </button>
-              <h2 class="card-title sizeTextTitleCard d-none d-sm-block">Kanye West</h2>
-              <h3 class="  d-block d-sm-none">Kanye West</h3>
+              <button class="color-warking sizeButtonLikeorNot" *ngIf="dataVotesFamous[0]['likePercentage']<50">
+                <app-dislike-svg [sizeImgSvg]="20" ></app-dislike-svg>
+
+              </button>
+
+
+              <h2 class="card-title sizeTextTitleCard d-none d-sm-block">{{ item.name }}</h2>
+              <h3 class="  d-block d-sm-none">{{ item.name }}</h3>
             </div>
 
-            <p class="card-text">1 month ago in Entertainment</p>
-            <p>{{ textPersonFamous[hideBottonVotes] }}</p>
+            <p class="card-text positionTextCard ">1 month ago in Entertainment</p>
+            <p class="positionTextCard" *ngIf="hideBottonVotes==0">{{ textPersonFamous }}</p>
+            <p class="positionTextCard" *ngIf="hideBottonVotes==1">{{ item.description }}</p>
 
-            <div class="d-flex justify-content-start">
+            <div class="d-flex justify-content-sm-start  positionTextCard">
               <button class="color-info mr-2 sizeButtonLikeorNot"(click)="checkBotton(1)" *ngIf="hideBottonVotes==1" >
                 <app-like-svg [sizeImgSvg]="20" ></app-like-svg>
 
@@ -123,250 +132,30 @@
               <button class="color-warking mr-2 sizeButtonLikeorNot"  *ngIf="hideBottonVotes==1" (click)="checkBotton(0)" >
                 <app-dislike-svg [sizeImgSvg]="20" ></app-dislike-svg>
               </button>
-                  <button class="d-block d-sm-none d-lg-block color-black-transparent mr-2 text-white borderButtonVoteNow w-25 buttonVoteNow" (click)="votesUser()">{{ textButtonVotes }}</button>
-                  </div>
-              <button class="d-none d-sm-block d-lg-none  color-black-transparent mr-2 text-white borderButtonVoteNow w-sm-75 w-md-50 buttonVoteNow mt-3" style="height: 40px;" (click)="votesUser()">{{ textButtonVotes }}</button>
+                  <button class="d-sm-none d-lg-block color-black-transparent mr-2 text-white borderButtonVoteNow w-25 buttonVoteNow" (click)="votesUser(item._id)">{{ textButtonVotes }}</button>
+            </div>
+              <button class="positionTextCard d-none d-sm-block d-lg-none  color-black-transparent mr-2 text-white borderButtonVoteNow w-sm-75 w-md-50 buttonVoteNow mt-3" style="height: 40px;" (click)="votesUser(item._id)">{{ textButtonVotes }}</button>
           </div>
         </div>
 
         <!-- Buttons votes -->
         <div class="w-100 d-flex ">
-          <div class="color-info sizeButtonTransparentFamous d-flex" style="width: 64%; ">
+          <div class="color-info sizeButtonTransparentFamous d-flex" [style.width.%]="dataVotesFamous[0]['likePercentage']"  >
               <div class="mt-2 ml-2 mr-2">
                 <app-like-svg [sizeImgSvg]="30"></app-like-svg>
               </div>
 
-            <h4 class="mt-2 ml-2 text-white">64%</h4>
+            <h4 *ngIf="dataVotesFamous[0]['likePercentage']"  class="mt-2 ml-2 text-white">{{ dataVotesFamous[0]['likePercentage'] }}%</h4>
           </div>
-          <div class="color-warking sizeButtonTransparentFamous d-flex justify-content-end" style="width: 36%;">
+          <div class="color-warking sizeButtonTransparentFamous d-flex justify-content-end" [style.width.%]=" dataVotesFamous[0]['disLikePercentage'] ">
             <app-dislike-svg [sizeImgSvg]="30"></app-dislike-svg>
-            <h4 class="mt-2 mr-2 text-white">36%</h4>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Mark -->
-    <div class="col-sm-6 mt-4 ">
-      <div class="card imgBackgroudCardVotes text-white shadow-lg"
-        style=" background-image: url('./assets/img/mark.jpg');  background-repeat: no-repeat;  background-position: center;  background-size: cover;">
-        <div class="card-body">
-        </div>
-
-        <div class="divContentFamous">
-          <div class="ml-3 mb-4">
-            <div class="d-flex  ">
-              <button class="color-warking sizeButtonLikeorNot">
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="37.034" viewBox="0 0 36 37.034"
-                  class=" mr-2 ">
-                  <path id="Rectangle_9_copy_2" data-name="Rectangle 9 copy 2"
-                    d="M504.428,590.338c-.244-2.562,1.584-7.607,1.584-7.607l-12.784-.008c-1.811,0-3.228-.776-3.228-3.247,0-2.317,2.557-3.013,2.557-3.013a2.778,2.778,0,0,1-1.636-2.588,2.854,2.854,0,0,1,2.824-2.861,2.4,2.4,0,0,1-1.458-2.7,3.151,3.151,0,0,1,2.6-2.664,2.451,2.451,0,0,1-.9-2.794c.575-1.358,2.09-2.854,5.493-2.854h15.893a2.237,2.237,0,0,1,2.287,1.229v18.59a2.649,2.649,0,0,1-.09.753c-4.239,6.25-5.743,8.032-5.492,11.65s-.467,4.613-2.174,4.792a3.736,3.736,0,0,1-.387.02C507.754,597.034,504.951,595.837,504.428,590.338Zm15.352-8.558h-1V560H526v21.78Z"
-                    transform="translate(-490 -560)" fill="#fff" />
-                </svg>
-              </button>
-
-              <h2 class="card-title sizeTextTitleCard d-none d-sm-block">Mark Zuckerberg</h2>
-              <h3 class="  d-block d-sm-none">Mark Zuckerberg</h3>
-
-            </div>
-
-            <p class="card-text">1 month ago in Business</p>
-            <p>Thank you for voting!</p>
-
-            <div class="d-flex justify-content-start">
-              <button class="color-info mr-2 sizeButtonLikeorNot">
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="37.003" viewBox="0 0 36 37.003"
-                  style="margin-top: -3px;">
-                  <path id="Rectangle_9_copy" data-name="Rectangle 9 copy"
-                    d="M250.625,597a2.238,2.238,0,0,1-2.287-1.229V577.2a2.651,2.651,0,0,1,.09-.753c4.239-6.245,5.743-8.024,5.492-11.639s.467-4.61,2.174-4.788,4.916.754,5.478,6.671c.244,2.56-1.584,7.6-1.584,7.6l12.785.008c1.81,0,3.227.775,3.227,3.245,0,2.314-2.557,3.01-2.557,3.01a2.777,2.777,0,0,1,1.636,2.586A2.853,2.853,0,0,1,272.255,586a2.394,2.394,0,0,1,1.458,2.7,3.149,3.149,0,0,1-2.6,2.661,2.448,2.448,0,0,1,.9,2.791c-.574,1.357-2.09,2.852-5.493,2.852Zm-4.4,0H240V575.25h7.22V597Z"
-                    transform="translate(-240 -559.997)" fill="#fff" />
-                </svg>
-              </button>
-              <button class="color-warking mr-2 sizeButtonLikeorNot">
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="37.034" viewBox="0 0 36 37.034"
-                  class=" mr-2 ">
-                  <path id="Rectangle_9_copy_2" data-name="Rectangle 9 copy 2"
-                    d="M504.428,590.338c-.244-2.562,1.584-7.607,1.584-7.607l-12.784-.008c-1.811,0-3.228-.776-3.228-3.247,0-2.317,2.557-3.013,2.557-3.013a2.778,2.778,0,0,1-1.636-2.588,2.854,2.854,0,0,1,2.824-2.861,2.4,2.4,0,0,1-1.458-2.7,3.151,3.151,0,0,1,2.6-2.664,2.451,2.451,0,0,1-.9-2.794c.575-1.358,2.09-2.854,5.493-2.854h15.893a2.237,2.237,0,0,1,2.287,1.229v18.59a2.649,2.649,0,0,1-.09.753c-4.239,6.25-5.743,8.032-5.492,11.65s-.467,4.613-2.174,4.792a3.736,3.736,0,0,1-.387.02C507.754,597.034,504.951,595.837,504.428,590.338Zm15.352-8.558h-1V560H526v21.78Z"
-                    transform="translate(-490 -560)" fill="#fff" />
-                </svg>
-              </button>
-              <button class=" color-black-transparent mr-2 text-white borderButtonVoteNow w-25">Vote now</button>
-            </div>
-          </div>
-        </div>
-
-        <!-- Buttons votes -->
-        <div class="w-100 d-flex ">
-          <div class="color-info sizeButtonTransparentFamous d-flex" style="width: 36%; ">
-            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="37.003" viewBox="0 0 36 37.003"
-              class="mt-1 ml-2">
-              <path id="Rectangle_9_copy" data-name="Rectangle 9 copy"
-                d="M250.625,597a2.238,2.238,0,0,1-2.287-1.229V577.2a2.651,2.651,0,0,1,.09-.753c4.239-6.245,5.743-8.024,5.492-11.639s.467-4.61,2.174-4.788,4.916.754,5.478,6.671c.244,2.56-1.584,7.6-1.584,7.6l12.785.008c1.81,0,3.227.775,3.227,3.245,0,2.314-2.557,3.01-2.557,3.01a2.777,2.777,0,0,1,1.636,2.586A2.853,2.853,0,0,1,272.255,586a2.394,2.394,0,0,1,1.458,2.7,3.149,3.149,0,0,1-2.6,2.661,2.448,2.448,0,0,1,.9,2.791c-.574,1.357-2.09,2.852-5.493,2.852Zm-4.4,0H240V575.25h7.22V597Z"
-                transform="translate(-240 -559.997)" fill="#fff" />
-            </svg>
-            <h4 class="mt-2 ml-2 text-white">36%</h4>
-          </div>
-          <div class="color-warking sizeButtonTransparentFamous d-flex justify-content-end" style="width: 64%;">
-            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="37.034" viewBox="0 0 36 37.034"
-              class="mt-2 mr-2 ">
-              <path id="Rectangle_9_copy_2" data-name="Rectangle 9 copy 2"
-                d="M504.428,590.338c-.244-2.562,1.584-7.607,1.584-7.607l-12.784-.008c-1.811,0-3.228-.776-3.228-3.247,0-2.317,2.557-3.013,2.557-3.013a2.778,2.778,0,0,1-1.636-2.588,2.854,2.854,0,0,1,2.824-2.861,2.4,2.4,0,0,1-1.458-2.7,3.151,3.151,0,0,1,2.6-2.664,2.451,2.451,0,0,1-.9-2.794c.575-1.358,2.09-2.854,5.493-2.854h15.893a2.237,2.237,0,0,1,2.287,1.229v18.59a2.649,2.649,0,0,1-.09.753c-4.239,6.25-5.743,8.032-5.492,11.65s-.467,4.613-2.174,4.792a3.736,3.736,0,0,1-.387.02C507.754,597.034,504.951,595.837,504.428,590.338Zm15.352-8.558h-1V560H526v21.78Z"
-                transform="translate(-490 -560)" fill="#fff" />
-            </svg>
-            <h4 class="mt-2 mr-2 text-white">64%</h4>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Cristina -->
-    <div class="col-sm-6 mt-4 ">
-      <div class="card imgBackgroudCardVotes text-white shadow-lg"
-        style=" background-image: url('./assets/img/critina.jpg');  background-repeat: no-repeat;  background-position: center;  background-size: cover;">
-        <div class="card-body">
-        </div>
-
-        <div class="divContentFamous">
-          <div class="ml-3 mb-4">
-            <div class="d-flex  ">
-              <button class="color-warking sizeButtonLikeorNot">
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="37.034" viewBox="0 0 36 37.034"
-                  class=" mr-2 ">
-                  <path id="Rectangle_9_copy_2" data-name="Rectangle 9 copy 2"
-                    d="M504.428,590.338c-.244-2.562,1.584-7.607,1.584-7.607l-12.784-.008c-1.811,0-3.228-.776-3.228-3.247,0-2.317,2.557-3.013,2.557-3.013a2.778,2.778,0,0,1-1.636-2.588,2.854,2.854,0,0,1,2.824-2.861,2.4,2.4,0,0,1-1.458-2.7,3.151,3.151,0,0,1,2.6-2.664,2.451,2.451,0,0,1-.9-2.794c.575-1.358,2.09-2.854,5.493-2.854h15.893a2.237,2.237,0,0,1,2.287,1.229v18.59a2.649,2.649,0,0,1-.09.753c-4.239,6.25-5.743,8.032-5.492,11.65s-.467,4.613-2.174,4.792a3.736,3.736,0,0,1-.387.02C507.754,597.034,504.951,595.837,504.428,590.338Zm15.352-8.558h-1V560H526v21.78Z"
-                    transform="translate(-490 -560)" fill="#fff" />
-                </svg>
-              </button>
-
-              <h2 class="card-title sizeTextTitleCard d-none d-sm-block">Cristina Fernández de Kirchner</h2>
-              <h3 class="  d-block d-sm-none">Cristina Fernández de Kirchner</h3>
-
-            </div>
-
-            <p class="card-text">1 month ago in Politics</p>
-            <p>Vestibulum diam ante, porttitor a odio eget, rhoncus neque. Aenean eu velit libero.</p>
-
-            <div class="d-flex justify-content-start">
-              <button class="color-info mr-2 sizeButtonLikeorNot">
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="37.003" viewBox="0 0 36 37.003"
-                  style="margin-top: -3px;">
-                  <path id="Rectangle_9_copy" data-name="Rectangle 9 copy"
-                    d="M250.625,597a2.238,2.238,0,0,1-2.287-1.229V577.2a2.651,2.651,0,0,1,.09-.753c4.239-6.245,5.743-8.024,5.492-11.639s.467-4.61,2.174-4.788,4.916.754,5.478,6.671c.244,2.56-1.584,7.6-1.584,7.6l12.785.008c1.81,0,3.227.775,3.227,3.245,0,2.314-2.557,3.01-2.557,3.01a2.777,2.777,0,0,1,1.636,2.586A2.853,2.853,0,0,1,272.255,586a2.394,2.394,0,0,1,1.458,2.7,3.149,3.149,0,0,1-2.6,2.661,2.448,2.448,0,0,1,.9,2.791c-.574,1.357-2.09,2.852-5.493,2.852Zm-4.4,0H240V575.25h7.22V597Z"
-                    transform="translate(-240 -559.997)" fill="#fff" />
-                </svg>
-              </button>
-              <button class="color-warking mr-2 sizeButtonLikeorNot">
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="37.034" viewBox="0 0 36 37.034"
-                  class=" mr-2 ">
-                  <path id="Rectangle_9_copy_2" data-name="Rectangle 9 copy 2"
-                    d="M504.428,590.338c-.244-2.562,1.584-7.607,1.584-7.607l-12.784-.008c-1.811,0-3.228-.776-3.228-3.247,0-2.317,2.557-3.013,2.557-3.013a2.778,2.778,0,0,1-1.636-2.588,2.854,2.854,0,0,1,2.824-2.861,2.4,2.4,0,0,1-1.458-2.7,3.151,3.151,0,0,1,2.6-2.664,2.451,2.451,0,0,1-.9-2.794c.575-1.358,2.09-2.854,5.493-2.854h15.893a2.237,2.237,0,0,1,2.287,1.229v18.59a2.649,2.649,0,0,1-.09.753c-4.239,6.25-5.743,8.032-5.492,11.65s-.467,4.613-2.174,4.792a3.736,3.736,0,0,1-.387.02C507.754,597.034,504.951,595.837,504.428,590.338Zm15.352-8.558h-1V560H526v21.78Z"
-                    transform="translate(-490 -560)" fill="#fff" />
-                </svg>
-              </button>
-              <button class=" color-black-transparent mr-2 text-white borderButtonVoteNow w-25">Vote now</button>
-            </div>
-          </div>
-        </div>
-
-        <!-- Buttons votes -->
-        <div class="w-100 d-flex ">
-          <div class="color-info sizeButtonTransparentFamous d-flex" style="width: 36%; ">
-            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="37.003" viewBox="0 0 36 37.003"
-              class="mt-1 ml-2">
-              <path id="Rectangle_9_copy" data-name="Rectangle 9 copy"
-                d="M250.625,597a2.238,2.238,0,0,1-2.287-1.229V577.2a2.651,2.651,0,0,1,.09-.753c4.239-6.245,5.743-8.024,5.492-11.639s.467-4.61,2.174-4.788,4.916.754,5.478,6.671c.244,2.56-1.584,7.6-1.584,7.6l12.785.008c1.81,0,3.227.775,3.227,3.245,0,2.314-2.557,3.01-2.557,3.01a2.777,2.777,0,0,1,1.636,2.586A2.853,2.853,0,0,1,272.255,586a2.394,2.394,0,0,1,1.458,2.7,3.149,3.149,0,0,1-2.6,2.661,2.448,2.448,0,0,1,.9,2.791c-.574,1.357-2.09,2.852-5.493,2.852Zm-4.4,0H240V575.25h7.22V597Z"
-                transform="translate(-240 -559.997)" fill="#fff" />
-            </svg>
-            <h4 class="mt-2 ml-2 text-white">36%</h4>
-          </div>
-          <div class="color-warking sizeButtonTransparentFamous d-flex justify-content-end" style="width: 64%;">
-            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="37.034" viewBox="0 0 36 37.034"
-              class="mt-2 mr-2 ">
-              <path id="Rectangle_9_copy_2" data-name="Rectangle 9 copy 2"
-                d="M504.428,590.338c-.244-2.562,1.584-7.607,1.584-7.607l-12.784-.008c-1.811,0-3.228-.776-3.228-3.247,0-2.317,2.557-3.013,2.557-3.013a2.778,2.778,0,0,1-1.636-2.588,2.854,2.854,0,0,1,2.824-2.861,2.4,2.4,0,0,1-1.458-2.7,3.151,3.151,0,0,1,2.6-2.664,2.451,2.451,0,0,1-.9-2.794c.575-1.358,2.09-2.854,5.493-2.854h15.893a2.237,2.237,0,0,1,2.287,1.229v18.59a2.649,2.649,0,0,1-.09.753c-4.239,6.25-5.743,8.032-5.492,11.65s-.467,4.613-2.174,4.792a3.736,3.736,0,0,1-.387.02C507.754,597.034,504.951,595.837,504.428,590.338Zm15.352-8.558h-1V560H526v21.78Z"
-                transform="translate(-490 -560)" fill="#fff" />
-            </svg>
-            <h4 class="mt-2 mr-2 text-white">64%</h4>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Malala-->
-    <div class="col-sm-6 mt-4 ">
-      <div class="card imgBackgroudCardVotes text-white shadow-lg"
-        style=" background-image: url('./assets/img/malala.jpg');  background-repeat: no-repeat;  background-position: center;  background-size: cover;">
-        <div class="card-body">
-        </div>
-
-        <div class="divContentFamous">
-          <div class="ml-3 mb-4">
-            <div class="d-flex  ">
-              <button class="color-info sizeButtonLikeorNot">
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="37.003" viewBox="0 0 36 37.003"
-                  style="margin-top: -3px;">
-                  <path id="Rectangle_9_copy" data-name="Rectangle 9 copy"
-                    d="M250.625,597a2.238,2.238,0,0,1-2.287-1.229V577.2a2.651,2.651,0,0,1,.09-.753c4.239-6.245,5.743-8.024,5.492-11.639s.467-4.61,2.174-4.788,4.916.754,5.478,6.671c.244,2.56-1.584,7.6-1.584,7.6l12.785.008c1.81,0,3.227.775,3.227,3.245,0,2.314-2.557,3.01-2.557,3.01a2.777,2.777,0,0,1,1.636,2.586A2.853,2.853,0,0,1,272.255,586a2.394,2.394,0,0,1,1.458,2.7,3.149,3.149,0,0,1-2.6,2.661,2.448,2.448,0,0,1,.9,2.791c-.574,1.357-2.09,2.852-5.493,2.852Zm-4.4,0H240V575.25h7.22V597Z"
-                    transform="translate(-240 -559.997)" fill="#fff" />
-                </svg>
-              </button>
-
-              <h2 class="card-title sizeTextTitleCard d-none d-sm-block">Malala Yousafzai</h2>
-              <h3 class="  d-block d-sm-none">Malala Yousafzai</h3>
-
-            </div>
-
-            <p class="card-text">1 month ago in Entertainment</p>
-            <p>Vestibulum diam ante, porttitor a odio eget, rhoncus neque. Aenean eu velit libero.</p>
-
-            <div class="d-flex justify-content-start">
-              <button class="color-info mr-2 sizeButtonLikeorNot">
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="37.003" viewBox="0 0 36 37.003"
-                  style="margin-top: -3px;">
-                  <path id="Rectangle_9_copy" data-name="Rectangle 9 copy"
-                    d="M250.625,597a2.238,2.238,0,0,1-2.287-1.229V577.2a2.651,2.651,0,0,1,.09-.753c4.239-6.245,5.743-8.024,5.492-11.639s.467-4.61,2.174-4.788,4.916.754,5.478,6.671c.244,2.56-1.584,7.6-1.584,7.6l12.785.008c1.81,0,3.227.775,3.227,3.245,0,2.314-2.557,3.01-2.557,3.01a2.777,2.777,0,0,1,1.636,2.586A2.853,2.853,0,0,1,272.255,586a2.394,2.394,0,0,1,1.458,2.7,3.149,3.149,0,0,1-2.6,2.661,2.448,2.448,0,0,1,.9,2.791c-.574,1.357-2.09,2.852-5.493,2.852Zm-4.4,0H240V575.25h7.22V597Z"
-                    transform="translate(-240 -559.997)" fill="#fff" />
-                </svg>
-              </button>
-              <button class="color-warking mr-2 sizeButtonLikeorNot">
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="37.034" viewBox="0 0 36 37.034"
-                  class=" mr-2 ">
-                  <path id="Rectangle_9_copy_2" data-name="Rectangle 9 copy 2"
-                    d="M504.428,590.338c-.244-2.562,1.584-7.607,1.584-7.607l-12.784-.008c-1.811,0-3.228-.776-3.228-3.247,0-2.317,2.557-3.013,2.557-3.013a2.778,2.778,0,0,1-1.636-2.588,2.854,2.854,0,0,1,2.824-2.861,2.4,2.4,0,0,1-1.458-2.7,3.151,3.151,0,0,1,2.6-2.664,2.451,2.451,0,0,1-.9-2.794c.575-1.358,2.09-2.854,5.493-2.854h15.893a2.237,2.237,0,0,1,2.287,1.229v18.59a2.649,2.649,0,0,1-.09.753c-4.239,6.25-5.743,8.032-5.492,11.65s-.467,4.613-2.174,4.792a3.736,3.736,0,0,1-.387.02C507.754,597.034,504.951,595.837,504.428,590.338Zm15.352-8.558h-1V560H526v21.78Z"
-                    transform="translate(-490 -560)" fill="#fff" />
-                </svg>
-              </button>
-              <button class=" color-black-transparent mr-2 text-white borderButtonVoteNow w-25">Vote now</button>
-            </div>
-          </div>
-        </div>
-
-        <!-- Buttons votes -->
-        <div class="w-100 d-flex ">
-          <div class="color-info sizeButtonTransparentFamous d-flex" style="width: 64%; ">
-            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="37.003" viewBox="0 0 36 37.003"
-              class="mt-1 ml-2">
-              <path id="Rectangle_9_copy" data-name="Rectangle 9 copy"
-                d="M250.625,597a2.238,2.238,0,0,1-2.287-1.229V577.2a2.651,2.651,0,0,1,.09-.753c4.239-6.245,5.743-8.024,5.492-11.639s.467-4.61,2.174-4.788,4.916.754,5.478,6.671c.244,2.56-1.584,7.6-1.584,7.6l12.785.008c1.81,0,3.227.775,3.227,3.245,0,2.314-2.557,3.01-2.557,3.01a2.777,2.777,0,0,1,1.636,2.586A2.853,2.853,0,0,1,272.255,586a2.394,2.394,0,0,1,1.458,2.7,3.149,3.149,0,0,1-2.6,2.661,2.448,2.448,0,0,1,.9,2.791c-.574,1.357-2.09,2.852-5.493,2.852Zm-4.4,0H240V575.25h7.22V597Z"
-                transform="translate(-240 -559.997)" fill="#fff" />
-            </svg>
-            <h4 class="mt-2 ml-2 text-white">64%</h4>
-          </div>
-          <div class="color-warking sizeButtonTransparentFamous d-flex justify-content-end" style="width: 36%;">
-            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="37.034" viewBox="0 0 36 37.034"
-              class="mt-2 mr-2 ">
-              <path id="Rectangle_9_copy_2" data-name="Rectangle 9 copy 2"
-                d="M504.428,590.338c-.244-2.562,1.584-7.607,1.584-7.607l-12.784-.008c-1.811,0-3.228-.776-3.228-3.247,0-2.317,2.557-3.013,2.557-3.013a2.778,2.778,0,0,1-1.636-2.588,2.854,2.854,0,0,1,2.824-2.861,2.4,2.4,0,0,1-1.458-2.7,3.151,3.151,0,0,1,2.6-2.664,2.451,2.451,0,0,1-.9-2.794c.575-1.358,2.09-2.854,5.493-2.854h15.893a2.237,2.237,0,0,1,2.287,1.229v18.59a2.649,2.649,0,0,1-.09.753c-4.239,6.25-5.743,8.032-5.492,11.65s-.467,4.613-2.174,4.792a3.736,3.736,0,0,1-.387.02C507.754,597.034,504.951,595.837,504.428,590.338Zm15.352-8.558h-1V560H526v21.78Z"
-                transform="translate(-490 -560)" fill="#fff" />
-            </svg>
-            <h4 class="mt-2 mr-2 text-white">36%</h4>
+            <h4 *ngIf="dataVotesFamous[0]['disLikePercentage']" class="mt-2 mr-2 text-white">{{ dataVotesFamous[0]['disLikePercentage'] }}%</h4>
           </div>
         </div>
       </div>
     </div>
 
   </div>
-
   <!-- Submit a Name-->
   <div class="row  mt-5 mb-4 ">
     <div class="col-12">
@@ -383,9 +172,7 @@
       </div>
     </div>
   </div>
-
   <hr>
-
   <!-- Footer of page-->
   <div class="w-100 d-flex justify-content-sm-between mt-4 mb-4">
     <div class="d-flex">
@@ -397,7 +184,6 @@
       <p class="opacityText mr-2 mr-sm-4" routerLink="/pagesUrl/Folow Us">Folow Us</p>
       <a routerLink="/pagesUrl/Twitter"><app-facebook-svg [sizeImgSvg]="30"></app-facebook-svg></a>
       <a routerLink="/pagesUrl/Facebook"><app-twitter-svg [sizeImgSvg]="30" ></app-twitter-svg></a>
-
     </div>
   </div>
 </div>

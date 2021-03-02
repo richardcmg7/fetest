@@ -108,6 +108,8 @@
 .sizeButtonLikeorNot {
   width: 40px;
   height: 40px;
+  margin-right: 10px;
+  border: 0;
 }
 
 .borderButtonVoteNow {
@@ -120,6 +122,15 @@
 
 .justify-content-start .sizeButtonLikeorNot:hover {
   border: 2px solid white;
+}
+
+.row_name {
+  margin-left: -17px;
+}
+
+.positionTextCard {
+  margin-left: 33px;
+  margin-right: 20px;
 }
 
 @media (max-width: 660px) {

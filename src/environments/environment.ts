@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  baseUrl : "http://fetest.mdigital.pro:2400/api/",
+  baseUrl: "http://fetest.mdigital.pro:2400/",
 };
 
 

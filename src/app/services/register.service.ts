@@ -16,9 +16,10 @@ export class RegisterService {
 
   registerUser(data) {
     return this.http.post(
-      `${this.url}auth/signup`, data
+      `${this.url}api/auth/signup`, data
     ).pipe(
       map(resp => {
+        sessionStorage.setItem('id_user_logged', resp["id"]);
         this.saveToken(resp['token']);
         return resp;
       })
@@ -28,6 +29,7 @@ export class RegisterService {
   private saveToken(dataToken) {
     this.tocken = dataToken;
     sessionStorage.setItem('token', dataToken);
+
   }
 
   readToken() {
